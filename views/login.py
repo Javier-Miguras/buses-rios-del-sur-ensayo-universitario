@@ -1,5 +1,6 @@
 from helpers.validate_helper import validarOpcion
 from helpers.validate_helper import cerrarApp
+from views.main import menu
 
 from controllers.LoginController import LoginController
 from helpers.session_helper import get_session, clear_session
@@ -27,7 +28,8 @@ def main():
                 if LoginController().login(username, password):
                     print("Sesión iniciada correctamente")
                     user_data = get_session("user")
-                    print(user_data.)
+                    
+                    menu()
                 else:
                     print("Error al iniciar sesión")
             except Exception as e:
