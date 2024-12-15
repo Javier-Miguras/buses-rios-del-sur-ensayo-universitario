@@ -1,12 +1,18 @@
 from models.Usuario_model import UsuarioModel
 from models.Route_model import RouteModel
 from models.Travel_model import TravelModel
+from models.Sales_model import SalesModel
+from models.Ticket_model import TicketModel
+from models.Bus_model import BusModel
+from helpers.session_helper import get_session
 
 class TicketSaleController:
     def __init__(self):
         self.__usuario_model = UsuarioModel()
         self.__route_model = RouteModel()
         self.__travel_model = TravelModel()
+        self.__ticket_model = TicketModel()
+        self.__bus_model = BusModel()
 
     def index(self):
         usuarios = self.__usuario_model.get_all()
@@ -21,15 +27,59 @@ class TicketSaleController:
             return route
         except Exception as e:
             print(e)
+            return False
 
-    def validateTravel(self, id_ruta, fecha_salida):
+    def validateTravels(self, id_ruta, fecha_salida):
         try:
-            travel = self.__travel_model.get_where(f"id_ruta = {id_ruta} AND fecha_salida LIKE '{fecha_salida}%'")
+            travel = self.__travel_model.get_all(f"id_ruta = {id_ruta} AND hora_salida LIKE '{fecha_salida}%'")
             if not travel:
                 raise Exception("Error: No hay viajes disponibles para los parámetros ingresados")
             return travel
         except Exception as e:
             print(e)
+            return False
+        
+    def validateTickets(self, id_viaje):
+        try:
+            tickets = self.__ticket_model.get_all(f"id_viaje = {id_viaje}")
+            return tickets
+        except Exception as e:
+            print(e)
+            return False
+        
+    def validateTravel(self, id_viaje):
+        try:
+            travel = self.__travel_model.get_where(f"id = {id_viaje}")
+            if not travel:
+                raise Exception("Error: Viaje no existe o fue eliminado")
+            return travel
+        except Exception as e:
+            print(e)
+            return False
+        
+    def validateBus(self, id_bus):
+        try:
+            bus = self.__bus_model.get_where(f"id = {id_bus}")
+            if not bus:
+                raise Exception("Error: Bus no existe o fue eliminado")
+            return bus
+        except Exception as e:
+            print(e)
+            return False
+        
+    def createTicket(self, id_venta, nombre_pasajero, rut_pasajero, id_viaje):
+        #TODO: VALIDAR DATOS
+        try:
+            self.__ticket_model.id_venta = id_venta
+            self.__ticket_model.nombre_pasajero = nombre_pasajero
+            self.__ticket_model.rut_pasajero = rut_pasajero
+            self.__ticket_model.id_viaje = id_viaje
+
+            self.__ticket_model.insert()
+
+        except Exception as e:
+            print(e)
+            return False
     
     def create(self, nombre, rut):
         self.__usuario_model.nombre = nombre
