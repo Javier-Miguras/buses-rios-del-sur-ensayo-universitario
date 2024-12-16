@@ -116,34 +116,8 @@ class VentaBoletos:
             elif int(opcion_seleccionada) == 2:
                 print(UsuariosController().index())
                 continue
-                
+
             elif int(opcion_seleccionada) == 3:
-                id = input("Ingrese id de usuario: ")
-                nombre = input("Ingrese nombre de usuario: ")
-                rut = input("Ingrese Rut de usuario: ")
-
-                try:
-                    if (UsuariosController().update(id, nombre, rut)):
-                        print("Usuario actualizado correctamente.")
-                    else :
-                        print("Error al actualizar usuario.")
-                except Exception as e:
-                    print(e)
-                continue
-
-            elif int(opcion_seleccionada) == 4:
-                id = input("Ingrese id de usuario: ")
-
-                try:
-                    if (UsuariosController().delete(id)):
-                        print("Usuario eliminado correctamente.")
-                    else :
-                        print("Error al eliminar usuario.")
-                except Exception as e:
-                    print(e)
-                continue
-
-            elif int(opcion_seleccionada) == 5:
                 self.__main_menu()
 
             else:

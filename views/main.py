@@ -1,6 +1,7 @@
 from views.MantenedorUsuarios import MantenedorUsuarios
 from views.MantenedorBuses import MantenedorBuses
 from views.VentaBoletos import VentaBoletos
+from views.Reportes import Reportes
 
 from helpers.validate_helper import validarOpcion
 from helpers.validate_helper import cerrarApp
@@ -46,7 +47,8 @@ def menu():
             venta_boletos = VentaBoletos(main_menu=menu)
             venta_boletos.menu()
 
-        # elif int(opcion_seleccionada) == 7:
-
+        elif int(opcion_seleccionada) == 7:
+            reportes = Reportes(main_menu=menu)
+            reportes.menu()
         else:
             cerrarApp()
