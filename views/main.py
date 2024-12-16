@@ -1,4 +1,5 @@
 from views.MantenedorUsuarios import MantenedorUsuarios
+from views.MantenedorBuses import MantenedorBuses
 from views.VentaBoletos import VentaBoletos
 
 from helpers.validate_helper import validarOpcion
@@ -32,7 +33,10 @@ def menu():
 
         # elif int(opcion_seleccionada) == 2:
 
-        # elif int(opcion_seleccionada) == 3:
+        elif int(opcion_seleccionada) == 3:
+            martenedor_buses = MantenedorBuses(main_menu=menu)
+            martenedor_buses.menu()
+
 
         # elif int(opcion_seleccionada) == 4:
 

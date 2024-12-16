@@ -30,14 +30,18 @@ class MantenedorUsuarios:
 
             if int(opcion_seleccionada) == 1:
 
-                nombre = input("Ingrese nombre de usuario: ")
-                rut = input("Ingrese Rut de usuario: ")
+                nombre = input("Ingrese nombre de nuevo usuario: ")
+                rut = input("Ingrese Rut de nuevo usuario: ")
+                username = input("Ingrese Username de nuevo usuario: ")
+                email = input("Ingrese Email de nuevo usuario: ")
+                password = input("Ingrese Password de nuevo usuario: ")
+                profile_id = input("Ingrese Profile_id de nuevo usuario: ")
 
                 try:
-                    if (UsuariosController().create(nombre, rut)):
-                        print("Usuario creado correctamente.")
+                    if (UsuariosController().create(nombre, rut, username, email, password, profile_id)):
+                        print("Usuario nuevo creado correctamente.")
                     else :
-                        print("Error al crear usuario.")
+                        print("Error al crear el nuevo usuario.")
                 except Exception as e:
                     print(e)
                 continue
@@ -50,9 +54,13 @@ class MantenedorUsuarios:
                 id = input("Ingrese id de usuario: ")
                 nombre = input("Ingrese nombre de usuario: ")
                 rut = input("Ingrese Rut de usuario: ")
+                username = input("Ingrese Username de usuario: ")
+                email = input("Ingrese Email de usuario: ")
+                password = input("Ingrese Password de usuario: ")
+                profile_id = input("Ingrese Profile_id de usuario: ")
 
                 try:
-                    if (UsuariosController().update(id, nombre, rut)):
+                    if (UsuariosController().update(id, nombre, rut,username, email, password, profile_id)):
                         print("Usuario actualizado correctamente.")
                     else :
                         print("Error al actualizar usuario.")
