@@ -4,6 +4,9 @@ from models.Travel_model import TravelModel
 from models.Sales_model import SalesModel
 from models.Ticket_model import TicketModel
 from models.Bus_model import BusModel
+from pdf.BoletoPDF import BoletoPDF
+
+from fpdf import FPDF
 from helpers.session_helper import get_session
 
 class TicketSaleController:
@@ -13,10 +16,19 @@ class TicketSaleController:
         self.__travel_model = TravelModel()
         self.__ticket_model = TicketModel()
         self.__bus_model = BusModel()
+        self.__boleto_pdf = BoletoPDF()
 
     def index(self):
         usuarios = self.__usuario_model.get_all()
         return usuarios
+    
+    def generateTicketPDF(self, code):
+        try:
+            ticket_data = self.__ticket_model.get_complete_ticket(f"s.code = '{code}'")
+            self.__boleto_pdf.generar_pdf(ticket_data)
+        except Exception as e:
+            print(e)
+            return False
     
     def validateRoute(self, origen, destino):
         try:

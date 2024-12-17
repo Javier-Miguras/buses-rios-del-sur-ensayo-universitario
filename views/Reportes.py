@@ -44,7 +44,7 @@ class Reportes:
 
                     opcion_seleccionada = input("Seleccione una opción: ")
                     
-                    while not validarOpcion(opcion_seleccionada, 0, 2):
+                    while not validarOpcion(opcion_seleccionada, 0, 5):
                         opcion_seleccionada = input("Opción inválida, vuelva a intentar: ")
 
                     if int(opcion_seleccionada) == 1:
@@ -56,7 +56,7 @@ class Reportes:
                         except Exception as e:
                             print(e)
 
-                    elif int(opcion_seleccionada) == 2:
+                    elif int(opcion_seleccionada) == 5:
                         self.menu()
 
                     else:

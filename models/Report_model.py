@@ -1,6 +1,7 @@
 import sqlite3
 import pandas as pd
 import os # Para usar rutas relativas
+from datetime import datetime
 
 class ReportModel:
     def __init__(self):
@@ -12,13 +13,17 @@ class ReportModel:
 
         try:
             query = f"""
-                SELECT 
+                SELECT
+                    s.id as nro_venta,
+                    s.code as codigo_venta,
                     t.id as nro_pasaje,
                     s.fecha as fecha_venta,
                     u.nombre as nombre_vendedor,
                     u.rut as rut_vendedor,
                     r.origen as ciudad_origen,
                     r.destino as ciudad_destino,
+                    ti.nombre_pasajero,
+                    ti.rut_pasajero,
                     tr.hora_salida,
                     tr.hora_llegada,
                     b.patente as patente_bus,
@@ -27,8 +32,7 @@ class ReportModel:
                     ts.estado as estado_viaje,
                     s.sub_total,
                     s.iva,
-                    s.total,
-                    s.code as codigo_venta
+                    s.total
                 FROM tickets t
                 LEFT JOIN sales s ON t.id_venta = s.id
                 LEFT JOIN usuarios u ON s.id_vendedor = u.id
@@ -37,14 +41,21 @@ class ReportModel:
                 LEFT JOIN buses b ON tr.id_bus = b.id
                 LEFT JOIN travel_status ts ON tr.id_estado = ts.id
                 LEFT JOIN usuarios us ON tr.id_chofer = us.id
+                LEFT JOIN tickets ti ON s.id = ti.id_venta
                 WHERE {where}
             """
+
+            # print(query)
             # Ejecuta la consulta y carga los datos en un DataFrame
             df = pd.read_sql_query(query, self.__conn)
 
+            if df.empty:
+                raise Exception("No se encontraron registros para el reporte.")
+
             # Ruta relativa a la carpeta "exports" dentro del proyecto
             ruta_carpeta = "./reports/"
-            nombre_archivo = "reporte_ventas.xlsx"
+            dateTime = datetime.now()
+            nombre_archivo = "reporte_ventas" + dateTime.strftime("%Y-%m-%d_%H-%M-%S") + ".xlsx"
             ruta_completa = os.path.join(ruta_carpeta, nombre_archivo)
 
             # Crea la carpeta "exports" si no existe

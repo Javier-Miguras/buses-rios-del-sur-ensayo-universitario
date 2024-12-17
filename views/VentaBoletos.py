@@ -91,7 +91,8 @@ class VentaBoletos:
                     code = str(uuid.uuid4())
 
                     # Crear venta
-                    venta_insert = self.__sales_controller.create(fecha, user.id, route[4], 1.19, route[4], code)
+                    iva = 0.19
+                    venta_insert = self.__sales_controller.create(fecha, user.id, route[4], route[4]*iva, route[4] + (route[4]*iva), code)
 
                     if not venta_insert:
                         print("Error al ingresar venta")
@@ -100,10 +101,11 @@ class VentaBoletos:
                     # Obtener objeto venta
                     venta = self.__sales_controller.getByCode(code)
 
-                    print(travel)
-
                     # Crear boleto
                     boleto = self.__ticket_sale_controller.createTicket(venta[0], nombre_pasajero, rut_pasajero, travel_id)
+
+                    # Crear PDF boleto
+                    self.__ticket_sale_controller.generateTicketPDF(code)
 
                     print("Boleto creado existosamente")
 
