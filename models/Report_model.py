@@ -13,7 +13,7 @@ class ReportModel:
 
         try:
             query = f"""
-                SELECT 
+                SELECT
                     s.id as nro_venta,
                     s.code as codigo_venta,
                     t.id as nro_pasaje,
@@ -22,6 +22,8 @@ class ReportModel:
                     u.rut as rut_vendedor,
                     r.origen as ciudad_origen,
                     r.destino as ciudad_destino,
+                    ti.nombre_pasajero,
+                    ti.rut_pasajero,
                     tr.hora_salida,
                     tr.hora_llegada,
                     b.patente as patente_bus,
@@ -39,6 +41,7 @@ class ReportModel:
                 LEFT JOIN buses b ON tr.id_bus = b.id
                 LEFT JOIN travel_status ts ON tr.id_estado = ts.id
                 LEFT JOIN usuarios us ON tr.id_chofer = us.id
+                LEFT JOIN tickets ti ON s.id = ti.id_venta
                 WHERE {where}
             """
 
