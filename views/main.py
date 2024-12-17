@@ -3,14 +3,20 @@ from views.MantenedorBuses import MantenedorBuses
 from views.VentaBoletos import VentaBoletos
 from views.Reportes import Reportes
 
+from helpers.session_helper import get_session
 from helpers.validate_helper import validarOpcion
 from helpers.validate_helper import cerrarApp
 
 def menu():
+
+    user_data = get_session("user")
+
     while True:
-        print("""
+        print(f"""
         =====================================
         Sistema de Gestión Buses Ríos del Sur
+              
+        Bienvenido otra vez {user_data.nombre}!
         =====================================
         1. Mantenedor Usuarios
         2. Mantenedor Perfiles

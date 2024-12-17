@@ -12,7 +12,17 @@ class ReportesController:
         return usuarios
     
     def reporteVentas(self, fecha_ini=False, fecha_fin=False):
-        self.__report_model.sales_all()
+
+        where = ''
+
+        if fecha_ini and fecha_fin:
+            where += f"DATE(s.fecha) BETWEEN '{fecha_ini}' AND '{fecha_fin}'"
+        elif fecha_ini:
+            where += f"DATE(s.fecha) >= '{fecha_ini}'"
+        elif fecha_fin:
+            where += f"DATE(s.fecha) <= '{fecha_fin}'"
+
+        self.__report_model.sales_all(where)
         print("Reporte generado existosamente")
     
     def create(self, nombre, rut):

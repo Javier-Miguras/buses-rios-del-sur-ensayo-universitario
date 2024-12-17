@@ -96,7 +96,7 @@ class UsuarioModel:
     def insert(self):
         try:
             self.__conn.execute(
-                f"INSERT INTO usuarios (nombre, rut) VALUES ('{self.nombre}', '{self.rut}');"
+                f"INSERT INTO usuarios (nombre, rut, username, email, password, profile_id) VALUES ('{self.nombre}', '{self.rut}', '{self.username}', '{self.email}', '{self.password}', {self.profile_id});"
             )
             self.__conn.commit()
             return True
@@ -107,7 +107,7 @@ class UsuarioModel:
     def update(self):
         try:
             self.__conn.execute(
-                f"UPDATE usuarios SET nombre = '{self.nombre}', rut = '{self.rut}' WHERE id = {self.id}"
+                f"UPDATE usuarios SET nombre = '{self.nombre}', rut = '{self.rut}', username = '{self.username}', email = '{self.email}', password = '{self.password}', profile_id = {self.profile_id} WHERE id = {self.id}"
             )
             self.__conn.commit()
             return True

@@ -8,7 +8,7 @@ class UsuariosController:
         usuarios = self.__usuario_model.get_all()
         return usuarios
     
-    def create(self, nombre, rut):
+    def create(self, nombre, rut, username, email, password, profile_id):
         self.__usuario_model.nombre = nombre
         self.__usuario_model.rut = rut
 
