@@ -11,7 +11,11 @@ class UsuariosController:
     def create(self, nombre, rut, username, email, password, profile_id):
         self.__usuario_model.nombre = nombre
         self.__usuario_model.rut = rut
-
+        self.__usuario_model.username = username
+        self.__usuario_model.email = email
+        self.__usuario_model.password = password
+        self.__usuario_model.profile_id = profile_id
+        
         validate = self.__usuario_model.get_where(f"rut = '{rut}'")
 
         if validate:

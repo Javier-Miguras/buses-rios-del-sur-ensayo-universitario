@@ -96,7 +96,7 @@ class TravelModel:
     def insert(self):
         try:
             self.__conn.execute(
-                f"INSERT INTO travels (nombre, rut) VALUES ('{self.nombre}', '{self.rut}');"
+                f"INSERT INTO travels (id_ruta, id_bus, id_estado, hora_salida, hora_llegada, id_chofer) VALUES ({self.id_ruta}, {self.id_bus}, {self.id_estado}, '{self.hora_salida}', '{self.hora_llegada}', {self.id_chofer});"
             )
             self.__conn.commit()
             return True
@@ -107,7 +107,7 @@ class TravelModel:
     def update(self):
         try:
             self.__conn.execute(
-                f"UPDATE travels SET nombre = '{self.nombre}', rut = '{self.rut}' WHERE id = {self.id}"
+                f"UPDATE travels SET id_ruta = '{self.id_ruta}', id_bus = '{self.id_bus}', id_estado = '{self.id_estado}', hora_salida = '{self.hora_salida}', hora_llegada = '{self.hora_llegada}', id_chofer = {self.id_chofer}  WHERE id = {self.id}"
             )
             self.__conn.commit()
             return True

@@ -7,6 +7,7 @@ class RouteModel:
         self.__origen = None
         self.__destino = None
         self.__duracion = None
+        self.__valor = None
     @property
     def id(self):
         return self.__id
@@ -38,6 +39,14 @@ class RouteModel:
     @duracion.setter
     def duracion(self, value):
         self.__duracion = value
+        
+    @property
+    def valor(self):
+        return self.__valor
+
+    @valor.setter
+    def valor(self, value):
+        self.__valor = value       
 
     def get(self):
         query = self.__conn.execute(f"SELECT * FROM routes WHERE id = {self.id}")
@@ -68,7 +77,7 @@ class RouteModel:
     def insert(self):
         try:
             self.__conn.execute(
-                f"INSERT INTO routes (nombre, rut) VALUES ('{self.nombre}', '{self.rut}');"
+                f"INSERT INTO routes (origen, destino, duracion, valor) VALUES ('{self.origen}', '{self.destino}', {self.duracion}, {self.valor});"
             )
             self.__conn.commit()
             return True
@@ -79,13 +88,14 @@ class RouteModel:
     def update(self):
         try:
             self.__conn.execute(
-                f"UPDATE routes SET nombre = '{self.nombre}', rut = '{self.rut}' WHERE id = {self.id}"
+                f"UPDATE routes SET origen = '{self.origen}', destino = '{self.destino}', duracion = {self.duracion}, valor = {self.valor} WHERE id = {self.id}"
             )
             self.__conn.commit()
             return True
         except Exception as e:
             print(f"Error al actualizar: {e}")
             return False
+
 
     def delete(self):
         try:

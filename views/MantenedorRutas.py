@@ -1,10 +1,10 @@
-from controllers.UsuariosController import UsuariosController
+from controllers.RoutesController import RoutesController
 from helpers.validate_helper import validarOpcion
 from helpers.validate_helper import cerrarApp
 
 class MantenedorRutas:
     def __init__(self, main_menu):
-        self.__controller = UsuariosController()
+        self.__controller = RoutesController()
         self.__main_menu = main_menu
         self.menu()
         
@@ -36,7 +36,7 @@ class MantenedorRutas:
                 valor = input("Ingrese valor de nueva ruta: ")
 
                 try:
-                    if (UsuariosController().create(origen, destino, duracion, valor)):
+                    if (RoutesController().create(origen, destino, duracion, valor)):
                         print("Nueva ruta creada correctamente.")
                     else :
                         print("Error al crear nueva ruta.")
@@ -45,7 +45,7 @@ class MantenedorRutas:
                 continue
 
             elif int(opcion_seleccionada) == 2:
-                print(UsuariosController().index())
+                print(RoutesController().index())
                 continue
                 
             elif int(opcion_seleccionada) == 3:
@@ -56,7 +56,7 @@ class MantenedorRutas:
                 valor = input("Ingrese valor de ruta: ")
 
                 try:
-                    if (UsuariosController().update(id, origen, destino, duracion, valor)):
+                    if (RoutesController().update(id, origen, destino, duracion, valor)):
                         print("Ruta actualizada correctamente.")
                     else :
                         print("Error al actualizar usuario ruta.")
@@ -68,7 +68,7 @@ class MantenedorRutas:
                 id = input("Ingrese id de ruta: ")
 
                 try:
-                    if (UsuariosController().delete(id)):
+                    if (RoutesController().delete(id)):
                         print("Ruta eliminada correctamente.")
                     else :
                         print("Error al eliminar Ruta.")
